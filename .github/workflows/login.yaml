@@ -42,6 +42,18 @@ jobs:
 
       - name: 运行登录脚本
         env:
+          # 推荐：一个账号一个 secret，加账号不用改老的
+          WEBHOST_1: ${{ secrets.WEBHOST_1 }}
+          WEBHOST_2: ${{ secrets.WEBHOST_2 }}
+          WEBHOST_3: ${{ secrets.WEBHOST_3 }}
+          WEBHOST_4: ${{ secrets.WEBHOST_4 }}
+          WEBHOST_5: ${{ secrets.WEBHOST_5 }}
+          WEBHOST_6: ${{ secrets.WEBHOST_6 }}
+          WEBHOST_7: ${{ secrets.WEBHOST_7 }}
+          WEBHOST_8: ${{ secrets.WEBHOST_8 }}
+          WEBHOST_9: ${{ secrets.WEBHOST_9 }}
+          WEBHOST_10: ${{ secrets.WEBHOST_10 }}
+          # 兼容老写法（可选）：一个 secret 里多行 email:password
           WEBHOST: ${{ secrets.WEBHOST }}
         run: |
           python login_script.py
@@ -49,14 +61,14 @@ jobs:
       - name: Update timestamp to keep workflow active
         run: |
           date > last_run_timestamp.txt
-          
+
       - name: Commit and push timestamp
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          
+
           git pull
-          
+
           git add last_run_timestamp.txt
           git commit -m "Automated timestamp update to keep workflow active [skip ci]"
           git push
